@@ -103,11 +103,8 @@ public class ProfileActivity extends AppCompatActivity {
                     startActivity(loginActivity);
 
                 } else if (MainActivity.TypeCnx == 2) {
-                    switch (v.getId()) {
-
-                        case R.id.logoutButton:
-                            signOutGmail();
-                            break;
+                    if (v.getId() == R.id.logoutButton) {
+                        signOutGmail();
                         // ...
                     }
 

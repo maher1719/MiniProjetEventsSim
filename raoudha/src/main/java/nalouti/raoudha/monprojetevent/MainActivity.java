@@ -146,11 +146,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                switch (v.getId()) {
-                    case R.id.sign_in_button_gmail:
-                        TypeCnx = 2;
-                        signIn();
-                        break;
+                if (v.getId() == R.id.sign_in_button_gmail) {
+                    TypeCnx = 2;
+                    signIn();
                     // ...
                 }
 
