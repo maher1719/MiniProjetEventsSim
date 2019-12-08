@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AddEvent extends AppCompatActivity {
 
-    TextView abc;
+    TextView ab;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
