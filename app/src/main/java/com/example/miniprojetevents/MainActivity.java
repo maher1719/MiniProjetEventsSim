@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
+        // najmou ne5dmou b projet mta3k kaynou projet wahed
+        /*Intent i = new Intent(MainActivity.this, RegisterActivity.class);
+        startActivity(i);*/
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
