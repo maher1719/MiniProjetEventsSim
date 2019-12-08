@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,8 +23,22 @@ import com.ramotion.foldingcell.FoldingCell;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder>  {
+public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.EventViewHolder> implements Filterable {
 
+
+    private final LayoutInflater mInflater;
+    public List<Event> mEvents; // Cached copy of words
+
+    CustomeFilter filter;
+
+    @Override
+    public Filter getFilter() {
+        if (filter == null) {
+            filter = new CustomeFilter(mEvents, this);
+        }
+
+        return filter;
+    }
 
     class EventViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
@@ -47,9 +63,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         }
     }
 
-
-    private final LayoutInflater mInflater;
-    private List<Event> mEvents; // Cached copy of words
 
     public EventListAdapter(Context context, List<Event> getDatabaseEvents) {
         mInflater = LayoutInflater.from(context);

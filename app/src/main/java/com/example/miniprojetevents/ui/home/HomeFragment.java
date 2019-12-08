@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -109,6 +110,19 @@ public class HomeFragment extends Fragment {
                         EventListAdapter adapter = new EventListAdapter(getContext(), ev);
                 listEvents.setLayoutManager(new LinearLayoutManager(root.getContext()));
                 listEvents.setAdapter(adapter);
+                SearchView sv = root.findViewById(R.id.mSearch);
+                sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String s) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String s) {
+                        adapter.getFilter().filter(s);
+                        return false;
+                    }
+                });
 
             }
             @Override
