@@ -1,22 +1,17 @@
 package com.example.miniprojetevents.ui.home;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
@@ -24,20 +19,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.miniprojetevents.R;
-import com.example.miniprojetevents.database.EventDatabase;
-import com.example.miniprojetevents.database.dao.EventDao;
 import com.example.miniprojetevents.database.dao.IEvent;
 import com.example.miniprojetevents.entities.Event;
-import com.example.miniprojetevents.entities.MessageNetwork;
 import com.example.miniprojetevents.ui.event.EventListAdapter;
 import com.example.miniprojetevents.viewModel.EventViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.ramotion.foldingcell.FoldingCell;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -64,7 +53,7 @@ public class HomeFragment extends Fragment {
 
         //runner.execute(evv);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) root.findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = root.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {

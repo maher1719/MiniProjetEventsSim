@@ -6,7 +6,6 @@
     android:background="@drawable/gradient_bg"
     android:orientation="vertical"
     tools:context=".RegisterActivity"
-
     >
 
 

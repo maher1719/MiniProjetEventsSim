@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +18,6 @@ import com.example.miniprojetevents.database.dao.EventDao;
 import com.example.miniprojetevents.entities.Event;
 import com.ramotion.foldingcell.FoldingCell;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -107,12 +104,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                         e=events.selectEventId(current.getId());
 
 
-                        if(e!=null){
-                            return true;
-                        }else{
-                            return false;
-
-                        }
+                        return e != null;
 
 
                     }
