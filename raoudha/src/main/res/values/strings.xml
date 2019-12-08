@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">MonProjetEvent</string>
+    <string name="facebook_app_id">753406958491147</string>
+    <string name="fb_login_protocol_scheme">fb753406958491147</string>
+    <string name="formulaire_d_ajout">Formulaire d\'ajout</string>
+
+    <string-array name="Gouvernerat">
+        <item>Ariana</item>
+        <item>Béja</item>
+        <item>Ben Arous</item>
+        <item>Bizerte</item>
+        <item>Gabès</item>
+        <item>Gafsa</item>
+        <item>Jendouba</item>
+        <item>Kairouan</item>
+        <item>Kasserine</item>
+        <item>Kébili</item>
+        <item>Le Kef</item>
+        <item>Mahdia</item>
+        <item>La Manouba</item>
+        <item>Médenine</item>
+        <item>Monastir</item>
+        <item>Nabeul</item>
+        <item>Sfax</item>
+        <item>Sidi Bouzid</item>
+        <item>Siliana</item>
+        <item>Sousse</item>
+        <item>Tataouine</item>
+        <item>Tozeur</item>
+        <item>Tunis</item>
+        <item>Zaghouan</item>
+
+
+    </string-array>
+
+
+</resources>
