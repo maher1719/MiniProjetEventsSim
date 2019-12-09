@@ -40,6 +40,14 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         return filter;
     }
 
+    public Filter getFilterWithCategorie(String categorie) {
+        if (filter == null) {
+            filter = new CustomeFilter(mEvents, this, categorie);
+        }
+
+        return filter;
+    }
+
     class EventViewHolder extends RecyclerView.ViewHolder {
         private final TextView wordItemView;
         private final TextView capacite;
@@ -143,6 +151,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                 intersted.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
                         final EventDao events = EventDatabase.getDatabase(view.getContext()).eventDao();
                             class insertData extends AsyncTask<Void,Void,Boolean> {
 
@@ -155,7 +164,9 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
                                     if(e!=null){
                                         events.deleteEventFromFavorit(current.getId());
+
                                         Log.d("EventG", "doInBackground: "+e);
+
 
                                         return false;
                                     }else{
@@ -177,9 +188,16 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                                     holder.addFavorite.setText("Delete");
 
                                 }else{
-                                    Toast.makeText(view.getContext(), "Event deleted to favorites", Toast.LENGTH_SHORT).show();
+                                    if (holder.addFavorite.getText().toString() == "Delete") {
+                                        mEvents.remove(current);
+                                        holder.mAdapter.notifyDataSetChanged();
+                                    }
+
+                                    Toast.makeText(view.getContext(), "Event deleted from favorites", Toast.LENGTH_SHORT).show();
                                     holder.addFavorite.setText("Interstsed");
+
                                 }
+
 
                             } catch (ExecutionException e) {
                                 e.printStackTrace();
@@ -196,6 +214,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
             }
         });
+
         if (mEvents != null) {
             Event current = mEvents.get(position);
             holder.wordItemView.setText(current.getMontant());

@@ -1,5 +1,6 @@
 package com.example.miniprojetevents.ui.event;
 
+import android.util.Log;
 import android.widget.Filter;
 
 import com.example.miniprojetevents.entities.Event;
@@ -11,10 +12,17 @@ public class CustomeFilter extends Filter {
 
     EventListAdapter adapter;
     List<Event> filterList;
+    String categorieFilter;
 
     public CustomeFilter(List<Event> list, EventListAdapter adapter) {
         this.adapter = adapter;
         this.filterList = list;
+    }
+
+    public CustomeFilter(List<Event> list, EventListAdapter adapter, String categorie) {
+        this.adapter = adapter;
+        this.filterList = list;
+        this.categorieFilter = categorie;
     }
 
     @Override
@@ -27,12 +35,43 @@ public class CustomeFilter extends Filter {
             List<Event> events = new ArrayList<>();
 
             for (int i = 0; i < filterList.size(); i++) {
-                //CHECK
-                if (filterList.get(i).getTitle().toUpperCase().contains(constraint)) {
-                    //ADD PLAYER TO FILTERED PLAYERS
+                //CHECK "Titre", "Categorie", "type", "lieu Event"
+                Log.d("switchCat", "performFiltering: " + categorieFilter);
+                switch (categorieFilter) {
+                    case "Titre":
+                        if (filterList.get(i).getTitle().toUpperCase().contains(constraint)) {
+                            //ADD PLAYER TO FILTERED PLAYERS
 
-                    events.add(filterList.get(i));
+                            events.add(filterList.get(i));
+                        }
+
+                    case "Categorie":
+                        if (filterList.get(i).getCategorie().toUpperCase().contains(constraint)) {
+                            //ADD PLAYER TO FILTERED PLAYERS
+
+                            events.add(filterList.get(i));
+                        }
+                    case "type":
+                        if (filterList.get(i).getType().toUpperCase().contains(constraint)) {
+                            //ADD PLAYER TO FILTERED PLAYERS
+
+                            events.add(filterList.get(i));
+                        }
+                    case "lieu Event":
+                        if (filterList.get(i).getLieuEvent().toUpperCase().contains(constraint)) {
+                            //ADD PLAYER TO FILTERED PLAYERS
+
+                            events.add(filterList.get(i));
+                        }
+                    default:
+                        if (filterList.get(i).getTitle().toUpperCase().contains(constraint)) {
+                            //ADD PLAYER TO FILTERED PLAYERS
+
+                            events.add(filterList.get(i));
+                        }
+
                 }
+
             }
 
             results.count = events.size();

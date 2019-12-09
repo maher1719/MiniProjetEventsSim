@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintLayout"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="394dp"
+        android:layout_width="match_parent"
         android:layout_height="675dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
@@ -24,12 +24,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-        <SearchView
-            android:id="@+id/mSearch"
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-        </SearchView>
+            <Spinner
+                android:id="@+id/spinnerCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="15dp" />
+
+            <SearchView
+                android:id="@+id/mSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginStart="0dp"
+                android:layout_toEndOf="@+id/spinnerCategories"
+                android:queryHint="Chercher par titre">
+
+            </SearchView>
+
+            <TextView
+                android:id="@+id/filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="0dp"
+                android:text="Filtrer"
+                android:textSize="20sp" />
+        </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_Events"
@@ -51,6 +77,7 @@
 
 
     </LinearLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

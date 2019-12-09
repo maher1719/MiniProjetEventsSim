@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,7 +44,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private String TAG="EventD";
+    private String TAG = "EventD";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -76,6 +79,18 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = root.findViewById(R.id.text_home);
         RecyclerView listEvents = root.findViewById(R.id.list_Events);
+
+        Spinner spinnerCategories = root.findViewById(R.id.spinnerCategories);
+        String[] arraySpinner = new String[]{
+                "Titre", "Categorie", "type", "lieu Event"
+        };
+        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item, arraySpinner);
+
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategories.setAdapter(adapterSpinner);
+
+
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -85,8 +100,7 @@ public class HomeFragment extends Fragment {
         EventViewModel mWordViewModel = new ViewModelProvider(this).get(EventViewModel.class);
 
 
-
-        final String BASE_URL="http://10.0.2.2:81";
+        final String BASE_URL = "http://10.0.2.2:81";
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
@@ -100,17 +114,14 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<List<Event>>() {
             @Override
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
-                List<Event> ev= response.body();
+                List<Event> ev = response.body();
+                EventListAdapter adapter = new EventListAdapter(getContext(), ev);
+                SearchView sv = root.findViewById(R.id.mSearch);
 
-
-
-
-
-
-                        EventListAdapter adapter = new EventListAdapter(getContext(), ev);
                 listEvents.setLayoutManager(new LinearLayoutManager(root.getContext()));
                 listEvents.setAdapter(adapter);
-                SearchView sv = root.findViewById(R.id.mSearch);
+
+
                 sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String s) {
@@ -119,19 +130,42 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public boolean onQueryTextChange(String s) {
-                        adapter.getFilter().filter(s);
+
+
+                        adapter.getFilterWithCategorie(spinnerCategories.getSelectedItem().toString()).filter(s);
+
+                        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                                Object item = parent.getItemAtPosition(pos);
+                                Log.d(TAG, "onItemSelected: " + item.toString());
+                                sv.setQueryHint("Chercher par " + item.toString());
+                                adapter.getFilterWithCategorie(item.toString()).filter(s);
+
+                            }
+
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                                Object item = parent.getItemAtPosition(parent.getFirstVisiblePosition());
+                                Log.d(TAG, "onItemSelected: " + item.toString());
+
+                                adapter.getFilterWithCategorie(item.toString()).filter(s);
+                            }
+                        });
+
+                        //Spinner Ends
+
+
                         return false;
                     }
                 });
 
             }
+
             @Override
             public void onFailure(Call<List<Event>> call, Throwable t) {
-                Log.d("failure", "onFailure3: "+t.getMessage());
+                Log.d("failure", "onFailure3: " + t.getMessage());
             }
         });
-
-
 
 
         return root;
