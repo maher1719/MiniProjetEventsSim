@@ -137,6 +137,7 @@ public class HomeFragment extends Fragment {
                         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                                 Object item = parent.getItemAtPosition(pos);
+
                                 Log.d(TAG, "onItemSelected: " + item.toString());
                                 sv.setQueryHint("Chercher par " + item.toString());
                                 adapter.getFilterWithCategorie(item.toString()).filter(s);
