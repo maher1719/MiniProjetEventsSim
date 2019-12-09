@@ -133,7 +133,6 @@ public class HomeFragment extends Fragment {
 
 
                         adapter.getFilterWithCategorie(spinnerCategories.getSelectedItem().toString()).filter(s);
-
                         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                                 Object item = parent.getItemAtPosition(pos);
