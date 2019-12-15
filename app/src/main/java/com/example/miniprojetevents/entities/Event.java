@@ -8,9 +8,6 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.sql.Date;
-import java.sql.Time;
-
 @Entity(tableName = "Event")
 public class Event {
 
@@ -45,6 +42,13 @@ public class Event {
     @SerializedName("capacite")
     @ColumnInfo(name = "capacite")
     private String capacite;
+
+
+    @SerializedName("latitude")
+    private double latitude;
+
+    @SerializedName("longtitude")
+    private double longtitude;
 
     /*@SerializedName("dateDebEvent")
     @ColumnInfo(name = "dateDebEvent")
@@ -229,6 +233,22 @@ public class Event {
     public void setDateAjout(Date dateAjout) {
         this.dateAjout = dateAjout;
     }*/
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongtitude() {
+        return longtitude;
+    }
+
+    public void setLongtitude(double longtitude) {
+        this.longtitude = longtitude;
+    }
 
     @Override
     public String toString() {

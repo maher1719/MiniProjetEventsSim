@@ -82,7 +82,7 @@ public class HomeFragment extends Fragment {
 
         Spinner spinnerCategories = root.findViewById(R.id.spinnerCategories);
         String[] arraySpinner = new String[]{
-                "Titre", "Categorie", "type", "lieu Event"
+                "Titre", "Categorie", "type", "lieu"
         };
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, arraySpinner);
@@ -138,6 +138,7 @@ public class HomeFragment extends Fragment {
                                 Object item = parent.getItemAtPosition(pos);
 
                                 Log.d(TAG, "onItemSelected: " + item.toString());
+                                //sv.setQuery("",false);
                                 sv.setQueryHint("Chercher par " + item.toString());
                                 adapter.getFilterWithCategorie(item.toString()).filter(s);
 
