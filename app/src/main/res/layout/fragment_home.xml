@@ -25,8 +25,17 @@
         app:layout_constraintVertical_bias="1.0">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <com.mancj.materialsearchbar.MaterialSearchBar
+                android:id="@+id/searchBar"
+                style="@style/MaterialSearchBarLight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:mt_hint="Custom hint"
+                app:mt_maxSuggestionsCount="10"
+                app:mt_speechMode="true" />
 
             <Spinner
                 android:id="@+id/spinnerCategories"
@@ -34,9 +43,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="15dp"
+                android:visibility="invisible" />
 
             <SearchView
+                android:visibility="invisible"
                 android:id="@+id/mSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -48,6 +59,7 @@
             </SearchView>
 
             <TextView
+                android:visibility="invisible"
                 android:id="@+id/filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

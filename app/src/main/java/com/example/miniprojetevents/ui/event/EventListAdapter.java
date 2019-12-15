@@ -1,6 +1,7 @@
 package com.example.miniprojetevents.ui.event;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.miniprojetevents.AddEvent;
 import com.example.miniprojetevents.R;
 import com.example.miniprojetevents.database.EventDatabase;
 import com.example.miniprojetevents.database.dao.EventDao;
@@ -82,8 +84,12 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                     @Override
                     public void onClick(View view) {
 
-                        String ta=t.getText().toString();
-                        Toast.makeText(view.getContext(), position + " "+ta, Toast.LENGTH_SHORT).show();
+                        Intent add = new Intent(view.getContext(), AddEvent.class);
+                        view.getContext().startActivity(add);
+
+
+
+
 
 
                     }
@@ -197,6 +203,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             holder.lieu.setText(current.getLieuEvent());
             holder.capaciteContent.setText(current.getCapacite());
             holder.content_name.setText(current.getUserMail());
+            holder.title.setText(current.getTitle());
+            holder.category.setText(current.getCategorie());
             //holder.mapFragement.
 
             holder.mapView.getMapAsync(new OnMapReadyCallback() {
@@ -211,7 +219,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                             CameraPosition positionCamera = new CameraPosition.Builder()
                                     .target(positionEvent) // Sets the new camera position
                                     .zoom(10) // Sets the zoom
-                                    .bearing(180) // Rotate the camera
+                                    // Rotate the camera
                                     .tilt(30) // Set the camera tilt
                                     .build();
                             mapboxMap.setCameraPosition(positionCamera);
@@ -272,6 +280,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         private final TextView addFavorite;
         private final TextView content_name;
         private final MapView mapView;
+        private final TextView title;
+        private final TextView category;
 
         private EventViewHolder(View itemView, EventListAdapter adapter) {
             super(itemView);
@@ -283,6 +293,8 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             this.lieuContent = itemView.findViewById(R.id.head_image_right_text);
             this.addFavorite = itemView.findViewById(R.id.content_add_favorite);
             content_name = itemView.findViewById(R.id.content_name_view);
+            this.title = itemView.findViewById(R.id.title_from_address);
+            this.category = itemView.findViewById(R.id.title_to_address);
 
             mapView = itemView.findViewById(R.id.mapViewEvent);
         }

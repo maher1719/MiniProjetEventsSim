@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/search_titre"
+        android:title="@string/titre" />
+    <item
+        android:id="@+id/search_lieu"
+        android:title="@string/lieu" />
+    <item android:title="@string/categorie" />
+    <item android:title="@string/type" />
+
+</menu>

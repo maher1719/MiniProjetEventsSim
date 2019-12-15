@@ -15,9 +15,10 @@ public class CustomeFilter extends Filter {
     String categorieFilter;
 
     public CustomeFilter(List<Event> list, EventListAdapter adapter) {
-        this.adapter = adapter;
         this.filterList = list;
+
     }
+
 
     public CustomeFilter(List<Event> list, EventListAdapter adapter, String categorie) {
         this.adapter = adapter;
@@ -51,13 +52,13 @@ public class CustomeFilter extends Filter {
 
                             events.add(filterList.get(i));
                         }
-                    case "type":
+                    case "Type":
                         if (filterList.get(i).getType().toUpperCase().contains(constraint)) {
                             //ADD PLAYER TO FILTERED PLAYERS
 
                             events.add(filterList.get(i));
                         }
-                    case "lieu Event":
+                    case "Lieu":
                         if (filterList.get(i).getLieuEvent().toUpperCase().contains(constraint)) {
                             //ADD PLAYER TO FILTERED PLAYERS
 
@@ -69,6 +70,7 @@ public class CustomeFilter extends Filter {
 
                             events.add(filterList.get(i));
                         }
+
 
                 }
 
