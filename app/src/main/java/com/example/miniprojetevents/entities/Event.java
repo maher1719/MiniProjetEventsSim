@@ -8,8 +8,10 @@ import androidx.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Entity(tableName = "Event")
-public class Event {
+public class Event implements Serializable {
 
     @SerializedName("idEvent")
     @PrimaryKey

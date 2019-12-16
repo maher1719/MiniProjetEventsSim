@@ -19,8 +19,20 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="0dp"
-
+            android:id="@+id/imageDetail"
+            android:layout_marginTop="0dp"
             android:src="@mipmap/ic_launcher" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="155dp"
+            android:layout_marginEnd="5dp"
+            android:background="@color/colorPrimary"
+            android:text="Join"
+            android:textColor="@color/white" />
 
         <ImageButton
             android:id="@+id/returnButton"
@@ -31,15 +43,24 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_back_animated" />
+
+
     </RelativeLayout>
 
-
+    <TextView
+        android:id="@+id/TitreEventDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp" />
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapEventDetail"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_below="@+id/imageDetail"
+        android:layout_marginTop="3dp"
         mapbox:mapbox_cameraTargetLat="51.50325"
         mapbox:mapbox_cameraTargetLng="-0.11968"
         mapbox:mapbox_cameraZoom="15" />
+
 
 </LinearLayout>

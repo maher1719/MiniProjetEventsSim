@@ -1,12 +1,19 @@
 package com.example.miniprojetevents;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.miniprojetevents.entities.Event;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -21,6 +28,7 @@ public class AddEvent extends AppCompatActivity {
     private MapView mapView;
 
     private SlidrConfig mConfig;
+    private ImageButton backActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +54,19 @@ public class AddEvent extends AppCompatActivity {
 
         // Attach the Slidr Mechanism to this activity
         Slidr.attach(this, mConfig);
+        Intent thisActivity = getIntent();
+        backActivity = findViewById(R.id.returnButton);
+        backActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+        TextView titre = findViewById(R.id.TitreEventDetail);
+
         mapView = findViewById(R.id.mapEventDetail);
+        Event event = (Event) thisActivity.getExtras().getSerializable("event");
+        titre.setText(event.getTitle());
 
         mapView.getMapAsync(new OnMapReadyCallback() {
 
@@ -55,7 +75,17 @@ public class AddEvent extends AppCompatActivity {
                 mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
-
+                        LatLng positionEvent = new LatLng(event.getLatitude(), event.getLongtitude());
+                        CameraPosition positionCamera = new CameraPosition.Builder()
+                                .target(positionEvent) // Sets the new camera position
+                                .zoom(10) // Sets the zoom
+                                // Rotate the camera
+                                .tilt(30) // Set the camera tilt
+                                .build();
+                        mapboxMap.setCameraPosition(positionCamera);
+                        MarkerOptions m = new MarkerOptions().setTitle(event.getTitle())
+                                .position(positionEvent);
+                        mapboxMap.addMarker(m);
                         mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                             @Override
                             public boolean onMapClick(@NonNull LatLng point) {
