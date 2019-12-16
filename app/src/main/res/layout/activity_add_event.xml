@@ -34,6 +34,15 @@
             android:text="Join"
             android:textColor="@color/white" />
 
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="151dp" />
+
         <ImageButton
             android:id="@+id/returnButton"
             android:layout_width="wrap_content"
@@ -51,11 +60,20 @@
         android:id="@+id/TitreEventDetail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/black"
         android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/description_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="7"
+        android:maxLines="20" />
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapEventDetail"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:layout_below="@+id/imageDetail"
         android:layout_marginTop="3dp"
         mapbox:mapbox_cameraTargetLat="51.50325"
