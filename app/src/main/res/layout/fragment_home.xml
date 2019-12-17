@@ -69,11 +69,16 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_Events"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="10dp"
             tools:listitem="@layout/cell">
 
         </androidx.recyclerview.widget.RecyclerView>

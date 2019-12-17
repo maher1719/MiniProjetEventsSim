@@ -42,12 +42,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
 
     CustomeFilter filter;
 
-    public EventListAdapter(Context context, List<Event> getDatabaseEvents) {
-        mInflater = LayoutInflater.from(context);
-        mEvents = getDatabaseEvents;
-
-    }
-
     @Override
     public Filter getFilter() {
         if (filter == null) {
@@ -63,6 +57,12 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         return filter;
     }
 
+    public EventListAdapter(Context context, List<Event> getDatabaseEvents) {
+        mInflater = LayoutInflater.from(context);
+        mEvents = getDatabaseEvents;
+
+    }
+
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +74,17 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                 TextView t = view.findViewById(R.id.title_price);
                 TextView intersted = view.findViewById(R.id.content_add_favorite);
                 Event current = mEvents.get(position);
-                moreinfo.setOnClickListener(new
+                moreinfo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent add = new Intent(view.getContext(), AddEvent.class);
+                        add.putExtra("event", current);
+                        view.getContext().startActivity(add);
+
+
+                    }
+                });
+                final EventDao events = EventDatabase.getDatabase(view.getContext()).eventDao();
                 class insertData extends AsyncTask<Void, Void, Boolean> {
 
 
@@ -83,17 +93,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
                         Integer e = null;
                         e = events.selectEventId(current.getId());
                         return e != null;
-
-
-                    }
-                })
-                final EventDao events = EventDatabase.getDatabase(view.getContext()).eventDao();
-                View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent add = new Intent(view.getContext(), AddEvent.class);
-                        add.putExtra("event", current);
-                        view.getContext().startActivity(add);
 
 
                     }
@@ -233,18 +232,6 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
         return new EventViewHolder(itemView, this);
     }
 
-    void setWords(List<Event> words) {
-        mEvents = words;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        if (mEvents != null)
-            return mEvents.size();
-        else return 0;
-    }
-
     class EventViewHolder extends RecyclerView.ViewHolder {
         final EventListAdapter mAdapter;
         private final TextView wordItemView;
@@ -272,6 +259,19 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.Even
             this.category = itemView.findViewById(R.id.title_to_address);
             mapView = itemView.findViewById(R.id.mapViewEvent);
         }
+    }
+
+
+    void setWords(List<Event> words) {
+        mEvents = words;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemCount() {
+        if (mEvents != null)
+            return mEvents.size();
+        else return 0;
     }
 
 

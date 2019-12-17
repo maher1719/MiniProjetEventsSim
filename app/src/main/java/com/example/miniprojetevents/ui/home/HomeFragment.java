@@ -8,10 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,22 +16,28 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.miniprojetevents.R;
 import com.example.miniprojetevents.database.dao.IEvent;
 import com.example.miniprojetevents.entities.Event;
 import com.example.miniprojetevents.ui.event.EventListAdapter;
+import com.example.miniprojetevents.ui.gallery.GalleryFragment;
+import com.example.miniprojetevents.ui.send.SendFragment;
 import com.example.miniprojetevents.viewModel.EventViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,15 +59,19 @@ public class HomeFragment extends Fragment {
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         //runner.execute(evv);
+        ViewPager pager = root.findViewById(R.id.view_pager);
+        setupViewPager(pager);
         BottomNavigationView bottomNavigationView = root.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_recents:
+                        pager.setCurrentItem(0);
                         Toast.makeText(root.getContext(), "Recents", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_favorites:
+                        pager.setCurrentItem(1);
                         Toast.makeText(root.getContext(), "Favorites", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_nearby:
@@ -76,14 +83,6 @@ public class HomeFragment extends Fragment {
         });
         final TextView textView = root.findViewById(R.id.text_home);
         RecyclerView listEvents = root.findViewById(R.id.list_Events);
-        Spinner spinnerCategories = root.findViewById(R.id.spinnerCategories);
-        String[] arraySpinner = new String[]{
-                "Titre", "Categorie", "type", "lieu"
-        };
-        ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_spinner_item, arraySpinner);
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerCategories.setAdapter(adapterSpinner);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -143,59 +142,6 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-                /*searchBar.setOnSearchActionListener(new MaterialSearchBar.OnSearchActionListener() {
-                    @Override
-                    public void onSearchStateChanged(boolean enabled) {
-                        String s = enabled ? "enabled" : "disabled";
-                        Toast.makeText(getActivity(), "Search " + s, Toast.LENGTH_SHORT).show();
-
-                    }
-
-                    @Override
-                    public void onSearchConfirmed(CharSequence text) {
-                        Log.d(TAG, "onSearchConfirmed: "+text.toString());
-                        //adapter.getFilterWithCategorie("Titre").filter(text.toString());
-
-                    }
-
-                    @Override
-                    public void onButtonClicked(int buttonCode) {
-
-
-
-                    }
-                });
-
-                */
-                sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                    @Override
-                    public boolean onQueryTextSubmit(String s) {
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onQueryTextChange(String s) {
-                        adapter.getFilterWithCategorie(spinnerCategories.getSelectedItem().toString()).filter(s);
-                        spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                                Object item = parent.getItemAtPosition(pos);
-                                Log.d(TAG, "onItemSelected: " + item.toString());
-                                //sv.setQuery("",false);
-                                sv.setQueryHint("Chercher par " + item.toString());
-                                adapter.getFilterWithCategorie(item.toString()).filter(s);
-
-                            }
-
-                            public void onNothingSelected(AdapterView<?> parent) {
-                                Object item = parent.getItemAtPosition(parent.getFirstVisiblePosition());
-                                Log.d(TAG, "onItemSelected: " + item.toString());
-                                adapter.getFilterWithCategorie(item.toString()).filter(s);
-                            }
-                        });
-                        //Spinner Ends
-                        return false;
-                    }
-                });
 
             }
 
@@ -207,5 +153,39 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    private void setupViewPager(ViewPager pager) {
+        ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
+        pagerAdapter.addFragment(new SendFragment());
+        pagerAdapter.addFragment(new GalleryFragment());
+        pager.setAdapter(pagerAdapter);
+    }
+
+
+    static class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+
+
+        public ViewPagerAdapter(FragmentManager childFragmentManager) {
+            super(childFragmentManager);
+        }
+
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        public void addFragment(Fragment fragment) {
+            mFragmentList.add(fragment);
+
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+    }
 
 }
+
