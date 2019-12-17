@@ -47,26 +47,26 @@
                 android:visibility="invisible" />
 
             <SearchView
-                android:visibility="invisible"
                 android:id="@+id/mSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="0dp"
+
                 android:layout_toEndOf="@+id/spinnerCategories"
-                android:queryHint="Chercher par titre">
+                android:queryHint="Chercher par titre"
+                android:visibility="invisible">
 
             </SearchView>
 
             <TextView
-                android:visibility="invisible"
                 android:id="@+id/filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="0dp"
                 android:text="Filtrer"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="invisible" />
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

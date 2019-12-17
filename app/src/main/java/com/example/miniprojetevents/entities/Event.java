@@ -20,7 +20,6 @@ public class Event implements Serializable {
     private int id;
 
 
-
     @SerializedName("titre")
     @ColumnInfo(name = "title")
     private String title;
@@ -74,7 +73,6 @@ public class Event implements Serializable {
     private String duree;
 
 
-
     @SerializedName("lieuEvent")
     @ColumnInfo(name = "lieuEvent")
     private String lieuEvent;
@@ -86,7 +84,6 @@ public class Event implements Serializable {
     /*@SerializedName("deteAjout")
     @ColumnInfo(name = "dateAjout")
     private Date dateAjout;*/
-
 
 
     @SerializedName("description")
@@ -105,7 +102,6 @@ public class Event implements Serializable {
         this.userMail = userMail;
         this.description = description;
     }
-
 
 
     public int getId() {

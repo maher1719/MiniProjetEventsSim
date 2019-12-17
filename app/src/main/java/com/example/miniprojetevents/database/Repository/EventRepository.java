@@ -34,9 +34,10 @@ public class EventRepository {
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
-    public void insert (Event event) {
+    public void insert(Event event) {
         new insertAsyncTask(eventDao).execute(event);
     }
+
     private static class insertAsyncTask extends AsyncTask<Event, Void, Void> {
 
         private EventDao mAsyncTaskDao;

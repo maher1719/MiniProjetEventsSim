@@ -35,11 +35,8 @@ public class AddEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Mapbox.getInstance(this, "pk.eyJ1IjoibWFoZXIxNzE3IiwiYSI6ImNqcGI3em54bjA2N2gza2x4enp1aGZzaDAifQ.FuZ8LLu_2I_5I9pVKVmGZA");
         setContentView(R.layout.activity_add_event);
-
         int primary = getResources().getColor(R.color.colorPrimary);
         int secondary = getResources().getColor(R.color.colorPrimaryDark);
-
-
         mConfig = new SlidrConfig.Builder()
                 .primaryColor(primary)
                 .secondaryColor(secondary)
@@ -48,10 +45,7 @@ public class AddEvent extends AppCompatActivity {
                 .scrimEndAlpha(0f)
                 .distanceThreshold(.25f)
                 .edge(true)
-
                 .build();
-
-
         // Attach the Slidr Mechanism to this activity
         Slidr.attach(this, mConfig);
         Intent thisActivity = getIntent();
@@ -63,11 +57,9 @@ public class AddEvent extends AppCompatActivity {
             }
         });
         TextView titre = findViewById(R.id.TitreEventDetail);
-
         mapView = findViewById(R.id.mapEventDetail);
         Event event = (Event) thisActivity.getExtras().getSerializable("event");
         titre.setText(event.getTitle());
-
         mapView.getMapAsync(new OnMapReadyCallback() {
 
             @Override
@@ -90,7 +82,6 @@ public class AddEvent extends AppCompatActivity {
                             @Override
                             public boolean onMapClick(@NonNull LatLng point) {
                                 //mapboxMap.addMarker(new MarkerOptions().setPosition(point));
-
                                 return true;
                             }
                         });
@@ -101,11 +92,7 @@ public class AddEvent extends AppCompatActivity {
                                 return false;
                             }
                         });
-
-
                         // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-
-
                     }
                 });
             }

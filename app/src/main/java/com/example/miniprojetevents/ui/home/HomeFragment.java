@@ -55,10 +55,7 @@ public class HomeFragment extends Fragment {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-
         //runner.execute(evv);
-
         BottomNavigationView bottomNavigationView = root.findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -77,22 +74,16 @@ public class HomeFragment extends Fragment {
                 return true;
             }
         });
-
-
         final TextView textView = root.findViewById(R.id.text_home);
         RecyclerView listEvents = root.findViewById(R.id.list_Events);
-
         Spinner spinnerCategories = root.findViewById(R.id.spinnerCategories);
         String[] arraySpinner = new String[]{
                 "Titre", "Categorie", "type", "lieu"
         };
         ArrayAdapter<String> adapterSpinner = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, arraySpinner);
-
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategories.setAdapter(adapterSpinner);
-
-
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -100,13 +91,10 @@ public class HomeFragment extends Fragment {
             }
         });
         EventViewModel mWordViewModel = new ViewModelProvider(this).get(EventViewModel.class);
-
-
         final String BASE_URL = "http://10.0.2.2:81";
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                 .create();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
@@ -123,31 +111,21 @@ public class HomeFragment extends Fragment {
                 listEvents.setAdapter(adapter);
                 searchBar = root.findViewById(R.id.searchBar);
                 searchBar.inflateMenu(R.menu.search_menu_items);
-
-
                 searchBar.addTextChangeListener(new TextWatcher() {
 
                     @Override
                     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-
                     }
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                         Log.d(TAG, "onTextChanged: " + "i " + i + " i2 " + i1 + " i3 " + i2);
-
                         adapter.getFilterWithCategorie("Titre").filter(charSequence.toString());
-
-
                         searchBar.getMenu().setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                             @Override
                             public boolean onMenuItemClick(MenuItem item) {
-
                                 //itemId=item.getOrder();
-
                                 searchBar.setText("");
-
                                 Log.d(TAG, "onMenuItemClick: " + item.toString() + " search" + charSequence.toString());
                                 adapter.getFilterWithCategorie(item.toString()).filter(charSequence.toString());
                                 return false;
@@ -160,7 +138,6 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void afterTextChanged(Editable editable) {
                         //editable.toString();
-
                         Log.d(TAG, "afterTextChanged: " + editable.toString());
 
                     }
@@ -190,8 +167,6 @@ public class HomeFragment extends Fragment {
                 });
 
                 */
-
-
                 sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String s) {
@@ -200,13 +175,10 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public boolean onQueryTextChange(String s) {
-
-
                         adapter.getFilterWithCategorie(spinnerCategories.getSelectedItem().toString()).filter(s);
                         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                                 Object item = parent.getItemAtPosition(pos);
-
                                 Log.d(TAG, "onItemSelected: " + item.toString());
                                 //sv.setQuery("",false);
                                 sv.setQueryHint("Chercher par " + item.toString());
@@ -215,17 +187,12 @@ public class HomeFragment extends Fragment {
                             }
 
                             public void onNothingSelected(AdapterView<?> parent) {
-
                                 Object item = parent.getItemAtPosition(parent.getFirstVisiblePosition());
                                 Log.d(TAG, "onItemSelected: " + item.toString());
-
                                 adapter.getFilterWithCategorie(item.toString()).filter(s);
                             }
                         });
-
                         //Spinner Ends
-
-
                         return false;
                     }
                 });
@@ -237,8 +204,6 @@ public class HomeFragment extends Fragment {
                 Log.d("failure", "onFailure3: " + t.getMessage());
             }
         });
-
-
         return root;
     }
 

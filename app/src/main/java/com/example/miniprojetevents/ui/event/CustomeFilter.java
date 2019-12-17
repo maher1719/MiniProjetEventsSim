@@ -34,7 +34,6 @@ public class CustomeFilter extends Filter {
             constraint = constraint.toString().toUpperCase();
             //STORE OUR FILTERED PLAYERS
             List<Event> events = new ArrayList<>();
-
             for (int i = 0; i < filterList.size(); i++) {
                 //CHECK "Titre", "Categorie", "type", "lieu Event"
                 Log.d("switchCat", "performFiltering: " + categorieFilter);
@@ -42,32 +41,26 @@ public class CustomeFilter extends Filter {
                     case "Titre":
                         if (filterList.get(i).getTitle().toUpperCase().contains(constraint)) {
                             //ADD PLAYER TO FILTERED PLAYERS
-
                             events.add(filterList.get(i));
                         }
-
                     case "Categorie":
                         if (filterList.get(i).getCategorie().toUpperCase().contains(constraint)) {
                             //ADD PLAYER TO FILTERED PLAYERS
-
                             events.add(filterList.get(i));
                         }
                     case "Type":
                         if (filterList.get(i).getType().toUpperCase().contains(constraint)) {
                             //ADD PLAYER TO FILTERED PLAYERS
-
                             events.add(filterList.get(i));
                         }
                     case "Lieu":
                         if (filterList.get(i).getLieuEvent().toUpperCase().contains(constraint)) {
                             //ADD PLAYER TO FILTERED PLAYERS
-
                             events.add(filterList.get(i));
                         }
                     default:
                         if (filterList.get(i).getTitle().toUpperCase().contains(constraint)) {
                             //ADD PLAYER TO FILTERED PLAYERS
-
                             events.add(filterList.get(i));
                         }
 
@@ -75,7 +68,6 @@ public class CustomeFilter extends Filter {
                 }
 
             }
-
             results.count = events.size();
             results.values = events;
         } else {
@@ -83,16 +75,13 @@ public class CustomeFilter extends Filter {
             results.values = filterList;
 
         }
-
         return results;
 
     }
 
     @Override
     public void publishResults(CharSequence charSequence, FilterResults filterResults) {
-
         adapter.mEvents = (List<Event>) filterResults.values;
-
         //REFRESH
         adapter.notifyDataSetChanged();
 

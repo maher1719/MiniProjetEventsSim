@@ -30,7 +30,6 @@ public class BlankFragment extends Fragment {
 
 
     public BlankFragment() {
-
     }
 
 
@@ -39,14 +38,11 @@ public class BlankFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_blank, container, false);
-
-
         mapView = root.findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull MapboxMap mapboxMap) {
-
                 mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
@@ -58,7 +54,6 @@ public class BlankFragment extends Fragment {
                             @Override
                             public boolean onMapClick(@NonNull LatLng point) {
                                 mapboxMap.addMarker(new MarkerOptions().setPosition(point));
-
                                 return true;
                             }
                         });
@@ -69,11 +64,7 @@ public class BlankFragment extends Fragment {
                                 return false;
                             }
                         });
-
-
                         // Map is set up and the style has loaded. Now you can add data or make other map adjustments
-
-
                     }
                 });
 
@@ -123,7 +114,6 @@ public class BlankFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
         mapView.onDestroy();
 
     }

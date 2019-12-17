@@ -22,15 +22,14 @@ import com.example.miniprojetevents.database.dao.EventDao;
 import com.example.miniprojetevents.entities.Event;
 import com.example.miniprojetevents.ui.event.EventListAdapter;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class GalleryFragment extends Fragment {
 
-    private GalleryViewModel galleryViewModel;
-    private String TAG= "EventG";
     List<Event> ev;
+    private GalleryViewModel galleryViewModel;
+    private String TAG = "EventG";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,44 +37,32 @@ public class GalleryFragment extends Fragment {
                 ViewModelProviders.of(this).get(GalleryViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
-
         RecyclerView listEvents = root.findViewById(R.id.list_Events_gallery);
-
-
-
-
-        galleryViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-
-        final EventDao events = EventDatabase.getDatabase(root.getContext()).eventDao();
-
-        class insertData extends AsyncTask<Void,Void,List<Event>> {
+        galleryViewModel.getText().observe(this, new
+        class insertData extends AsyncTask<Void, Void, List<Event>> {
 
 
             @Override
             protected List<Event> doInBackground(Void... voids) {
-                 ev=events.getAllEvents();
-                Log.d(TAG, "doInBackground: "+ev.toString());
+                ev = events.getAllEvents();
+                Log.d(TAG, "doInBackground: " + ev.toString());
                 return ev;
             }
 
+        })
+        final EventDao events = EventDatabase.getDatabase(root.getContext()).eventDao();
+        Observer<String> () {
+            @Override
+            public void onChanged (@Nullable String s){
+                textView.setText(s);
+            }
         }
-
         insertData runner = new insertData();
-
-
         try {
-            List<Event> eventsLocal=runner.execute().get();
+            List<Event> eventsLocal = runner.execute().get();
             EventListAdapter adapter = new EventListAdapter(getContext(), eventsLocal);
-
             listEvents.setLayoutManager(new LinearLayoutManager(root.getContext()));
             listEvents.setAdapter(adapter);
-
-
 
 
         } catch (ExecutionException e) {
@@ -83,8 +70,6 @@ public class GalleryFragment extends Fragment {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
         return root;
     }
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:mapbox="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:visibility="gone">
 
@@ -419,6 +419,7 @@
                 mapbox:mapbox_cameraTargetLng="-0.11968"
                 mapbox:mapbox_cameraZoom="15" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -426,29 +427,29 @@
 
 
             <TextView
-            android:id="@+id/content_request_btn"
-            android:layout_width="153dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@color/btnRequest"
-            android:padding="10dp"
-            android:text="@string/request_btn_text"
-            android:textAlignment="center"
-            android:textColor="@color/mainTextColor"
-            android:textSize="20sp" />
+                android:id="@+id/content_request_btn"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@color/btnRequest"
+                android:padding="10dp"
+                android:text="@string/request_btn_text"
+                android:textAlignment="center"
+                android:textColor="@color/mainTextColor"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/content_add_favorite"
-            android:layout_width="153dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="16dp"
-            android:background="@color/btnRequest"
-            android:padding="10dp"
-            android:text="@string/interset_btn_text"
-            android:textAlignment="center"
-            android:textColor="@color/mainTextColor"
-            android:textSize="20sp" />
+            <TextView
+                android:id="@+id/content_add_favorite"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/btnRequest"
+                android:padding="10dp"
+                android:text="@string/interset_btn_text"
+                android:textAlignment="center"
+                android:textColor="@color/mainTextColor"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <TextView

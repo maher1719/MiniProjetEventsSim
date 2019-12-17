@@ -35,6 +35,4 @@ public interface EventDao {
     List<Event> getAllEvents();
 
 
-
-
 }
