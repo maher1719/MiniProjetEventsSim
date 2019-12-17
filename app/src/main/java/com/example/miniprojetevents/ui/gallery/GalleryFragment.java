@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,9 +25,9 @@ import java.util.concurrent.ExecutionException;
 
 public class GalleryFragment extends Fragment {
 
-    List<Event> ev;
     private GalleryViewModel galleryViewModel;
     private String TAG = "EventG";
+    List<Event> ev;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +36,7 @@ public class GalleryFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
         final TextView textView = root.findViewById(R.id.text_gallery);
         RecyclerView listEvents = root.findViewById(R.id.list_Events_gallery);
-        galleryViewModel.getText().observe(this, new
+        final EventDao events = EventDatabase.getDatabase(root.getContext()).eventDao();
         class insertData extends AsyncTask<Void, Void, List<Event>> {
 
 
@@ -49,13 +47,6 @@ public class GalleryFragment extends Fragment {
                 return ev;
             }
 
-        })
-        final EventDao events = EventDatabase.getDatabase(root.getContext()).eventDao();
-        Observer<String> () {
-            @Override
-            public void onChanged (@Nullable String s){
-                textView.setText(s);
-            }
         }
         insertData runner = new insertData();
         try {
