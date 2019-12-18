@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
@@ -70,7 +69,6 @@ public class HomeEvents extends Fragment {
             public void onResponse(Call<List<Event>> call, Response<List<Event>> response) {
                 List<Event> ev = response.body();
                 EventListAdapter adapter = new EventListAdapter(getContext(), ev);
-                SearchView sv = root.findViewById(R.id.mSearch);
                 listEvents.setLayoutManager(new LinearLayoutManager(root.getContext()));
                 listEvents.setAdapter(adapter);
                 searchBar = root.findViewById(R.id.searchBar);

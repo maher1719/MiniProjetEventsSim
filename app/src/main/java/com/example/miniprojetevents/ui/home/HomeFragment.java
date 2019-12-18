@@ -18,6 +18,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.miniprojetevents.R;
 import com.example.miniprojetevents.ui.fragmentsEvent.HomeEvents;
 import com.example.miniprojetevents.ui.gallery.GalleryFragment;
+import com.example.miniprojetevents.ui.send.SendFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mancj.materialsearchbar.MaterialSearchBar;
 
@@ -40,21 +41,56 @@ public class HomeFragment extends Fragment {
         ViewPager pager = root.findViewById(R.id.view_pager);
         setupViewPager(pager);
         BottomNavigationView bottomNavigationView = root.findViewById(R.id.bottom_navigation);
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        bottomNavigationView.setSelectedItemId(R.id.action_recents);
+                        break;
+                    case 1:
+                        bottomNavigationView.setSelectedItemId(R.id.action_map);
+                        break;
+                    case 2:
+                        bottomNavigationView.setSelectedItemId(R.id.action_favorites);
+                        break;
+                    case 3:
+                        bottomNavigationView.setSelectedItemId(R.id.action_nearby);
+                        break;
+
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_recents:
                         pager.setCurrentItem(0);
+
                         Toast.makeText(root.getContext(), "Recents", Toast.LENGTH_SHORT).show();
                         break;
-                    case R.id.action_favorites:
+                    case R.id.action_map:
                         pager.setCurrentItem(1);
+                        Toast.makeText(root.getContext(), "Nearby", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_favorites:
+                        pager.setCurrentItem(2);
+
                         Toast.makeText(root.getContext(), "Favorites", Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.action_nearby:
                         Toast.makeText(root.getContext(), "Nearby", Toast.LENGTH_SHORT).show();
                         break;
+
                 }
                 return true;
             }
@@ -66,6 +102,7 @@ public class HomeFragment extends Fragment {
     private void setupViewPager(ViewPager pager) {
         ViewPagerAdapter pagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         pagerAdapter.addFragment(new HomeEvents());
+        pagerAdapter.addFragment(new SendFragment());
         pagerAdapter.addFragment(new GalleryFragment());
         pager.setAdapter(pagerAdapter);
     }

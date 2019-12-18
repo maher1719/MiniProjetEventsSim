@@ -9,12 +9,24 @@
         android:icon="@drawable/ic_home"
         android:title="Home"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_map"
+        android:enabled="true"
+        android:icon="@drawable/ic_map"
+        android:title="Map"
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_nearby"
         android:enabled="true"
         android:icon="@drawable/ic_location"
         android:title="Nearby"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_For_You"
+        android:enabled="true"
+        android:icon="@drawable/ic_for_you"
+        android:title="For you"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_favorites"
