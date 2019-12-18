@@ -23,6 +23,7 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.style.layers.TransitionOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,12 +73,63 @@ public class BlankFragment extends Fragment {
                         mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
                             @Override
                             public void onStyleLoaded(@NonNull Style style) {
+                                style.setTransition(new TransitionOptions(0, 0, false));
                                 List<MarkerOptions> markers = new ArrayList<>();
                                 for (Event event : events) {
                                     MarkerOptions m = new MarkerOptions().setTitle(event.getTitle())
                                             .position(new LatLng(event.getLatitude(), event.getLongtitude()));
                                     mapboxMap.addMarker(m);
                                 }
+                                /*
+                                try {
+                                    style.addSource(
+                                            new GeoJsonSource("EventsMap",
+                                                    new URI("http://10.0.2.2:81/mesWebSErvices/geojson.php"),
+                                                    new GeoJsonOptions()
+                                                            .withCluster(true)
+                                                            .withClusterMaxZoom(15)
+                                                            .withClusterRadius(50)
+                                            )
+                                    );
+                                } catch (URISyntaxException exception) {
+                                    Log.e("errorMap", "Check the URL " + exception.getMessage());
+                                }
+                                SymbolLayer unclustered = new SymbolLayer("unclustered-points", "EventsMap");
+                                unclustered.setFilter(has("titre"));
+                                style.addLayer(unclustered);
+                                SymbolLayer countLayer = new SymbolLayer("SYMBOL_LAYER_COUNT_LAYER_ID", "EventsMap");
+                                countLayer.setProperties(
+                                        textField(Expression.toString(get("point_count"))),
+                                        textSize(12f),
+                                        textColor(getResources().getColor(R.color.white)),
+                                        textIgnorePlacement(true),
+                                        textAllowOverlap(true)
+                                );
+                                style.addLayer(countLayer);
+                                int[][] layers = new int[][]{
+                                        new int[]{10, ContextCompat.getColor(root.getContext(), R.color.colorPrimaryDark)},
+                                        new int[]{5, ContextCompat.getColor(root.getContext(), R.color.colorPrimary)},
+                                        new int[]{0, ContextCompat.getColor(root.getContext(), R.color.mapbox_blue)}
+                                };
+                                for (int i = 0; i < layers.length; i++) {
+//Add clusters' circles
+                                    CircleLayer circles = new CircleLayer("cluster-" + i, "earthquakes");
+                                    circles.setProperties(
+                                            circleColor(layers[i][1]),
+                                            circleRadius(18f)
+                                    );
+                                    Expression pointCount = toNumber(get("point_count"));
+                                    circles.setFilter(
+                                            i == 0
+                                                    ? all(has("point_count"),
+                                                    gte(pointCount, literal(layers[i][0]))
+                                            ) : all(has("point_count"),
+                                                    gte(pointCount, literal(layers[i][0])),
+                                                    lt(pointCount, literal(layers[i - 1][0]))
+                                            )
+                                    );
+                                    style.addLayer(circles);
+                                }*/
                                 /*mapboxMap.addOnMapClickListener(new MapboxMap.OnMapClickListener() {
                                     @Override
                                     public boolean onMapClick(@NonNull LatLng point) {
@@ -112,7 +164,7 @@ public class BlankFragment extends Fragment {
             public void onFailure(Call<List<Event>> call, Throwable t) {
             }
         });
-        mapView.getMapAsync(new OnMapReadyCallback() {
+        /*mapView.getMapAsync(new OnMapReadyCallback() {
             @Override
             public void onMapReady(@NonNull MapboxMap mapboxMap) {
                 mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
@@ -141,7 +193,7 @@ public class BlankFragment extends Fragment {
                 });
 
             }
-        });
+        });*/
         return root;
     }
 
